@@ -18,7 +18,6 @@ class Chat extends Component {
   componentDidMount() {
     const defaultMessage = answersData.find((answer) => answer.tags.includes('DEFAULT'));
     const messages = this.state.messages.concat(defaultMessage);
-
     setTimeout(() => {
       this.setState({
         shop: shopData,
@@ -27,13 +26,17 @@ class Chat extends Component {
     }, 1000);
   }
 
+  handleAnswerClick = (messages) => {
+    this.setState({ messages });
+  };
+
   render() {
     const { shop, messages } = this.state;
     return (
       <main className="Chat">
         <ChatHeader shop={shop} />
         <ChatBox messages={messages} />
-        <ChatInput />
+        <ChatInput messages={messages} answerClick={this.handleAnswerClick} />
       </main>
     );
   }
